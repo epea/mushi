@@ -9,7 +9,7 @@ public class MushiController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.speed = 0.01f + Random.value * 0.1f;
+        this.speed = (0.1f + Random.value) * 0.01f;
         this.direction = Random.Range(0, 360);
         transform.Rotate(new Vector3(0, 0, 360 - direction));
     }
@@ -23,4 +23,15 @@ public class MushiController : MonoBehaviour
         this.direction = this.direction + deltaDirection;
         transform.Rotate(new Vector3(0, 0, 360 - deltaDirection));
     }
+
+    void OnTriggerEnter2D(Collider2D coll) {
+        if (coll.gameObject.tag == "Item")
+        {
+            this.direction = this.direction + 180;
+            transform.Rotate(new Vector3(0, 0, 360 - 180));
+        } else {
+            Destroy(coll.gameObject);
+            Destroy (gameObject);
+        }
+	}
 }
